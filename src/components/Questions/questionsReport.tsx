@@ -43,7 +43,7 @@ const ReturnButton = styled(Button)({
 })
 
 
-export function QuestionsReport({ showButton }: {showButton?: boolean}) {
+export function QuestionsReport({ showButton }: { showButton?: boolean }) {
 
   const { storedForm, setValue } = useContext(QuestionsContext);
 
@@ -53,50 +53,60 @@ export function QuestionsReport({ showButton }: {showButton?: boolean}) {
     setValue(0)
   }
 
-  return(
-       <FormContainer>
-            {storedForm?.map(questions => (
-              <FormBox key={questions.question}>
-                <FormControl component="fieldset" >
-                  <FormLabel component="legend" >
-                    <QuestionBox>
+  console.log(storedForm)
+
+  return (
+    <FormContainer>
+      {storedForm?.map(questions => (
+        <FormBox key={questions.question}>
+          <FormControl component="fieldset" >
+            <FormLabel component="legend" >
+              <QuestionBox>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      `${questions.question} (${questions.difficulty})`
+                  }}
+                />
+              </QuestionBox>
+            </FormLabel>
+            <RadioGroup aria-label="quiz" value={questions.givenAnswer}>
+              {questions.answers.map(answer => (
+                answer === questions.givenAnswer ?
+                  <FormControlLabel value={answer} control={<Radio />}
+                    label={
                       <div
                         dangerouslySetInnerHTML={{
-                          __html:
-                            `${questions.question} (${questions.difficulty})`
+                          __html: `${answer} ${answer === questions.correctAnswer ? "✅" : ''}`
                         }}
                       />
-                    </QuestionBox>
-                  </FormLabel>
-                  <RadioGroup aria-label="quiz" value={questions.givenAnswer}>
-                    {questions.answers.map(answer => (
-                       answer === questions.givenAnswer ? 
-                       <FormControlLabel value={answer} control={<Radio />}
-                        label={
-                          <div 
-                            dangerouslySetInnerHTML={{
-                              __html: `${answer} ${answer === questions.correctAnswer ? "✅" : ''}`
-                            }}
-                          />
-                        }
+                    }
+                  />
+                  :
+                  <FormControlLabel value={answer} disabled control={<Radio />}
+                    label={
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: `${answer} ${answer === questions.correctAnswer ? "✅" : ''}`
+                        }}
                       />
-                       :
-                      <FormControlLabel value={answer} disabled control={<Radio />}
-                        label={
-                          <div 
-                            dangerouslySetInnerHTML={{
-                              __html: `${answer} ${answer === questions.correctAnswer ? "✅" : ''}`
-                            }}
-                          />
-                        }
-                      />
-                    ))}
-                  </RadioGroup>
-                </FormControl>
-              </FormBox>
-            ))}
+                    }
+                  />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </FormBox>
+      ))}
+
+      {
+        storedForm.length === 0
+          ? <span>It seems you don't have a last quiz report!</span>
+          : <Box>
             <span>Your last score was: {score} points!</span>
-            { showButton && <ReturnButton onClick={handleReturn}>Return</ReturnButton> }
+            {showButton && <ReturnButton onClick={handleReturn}>Return</ReturnButton>}
+          </Box>
+      }
+
     </FormContainer>
   )
 }
