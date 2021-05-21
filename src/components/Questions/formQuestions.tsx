@@ -1,8 +1,7 @@
 import { Box, Button, Container, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, styled } from "@material-ui/core";
 import { Form, Formik } from "formik";
-import { useContext, useState, } from "react";
+import { useContext } from "react";
 import { Question, QuestionsContext } from "../../context/QuestionsContext";
-import { QuestionsReport } from "./questionsReport";
 
 type FormQuestionsType = {
   questions: Question[];
@@ -60,11 +59,10 @@ const SubmitButton = styled(Button)({
   boxShadow: '0 3px 5px 2px #003ab85e',
 })
 
+
 export function FormQuestions({ questions }: FormQuestionsType) {
 
-  const { saveAnswers, setValue } = useContext(QuestionsContext);
-
-  const [isReporting, setIsReporting] = useState(false);
+  const { saveAnswers, setValue, isReporting, setIsReporting } = useContext(QuestionsContext);
 
   const handleReport = () => {
     setIsReporting(!isReporting)
@@ -76,7 +74,7 @@ export function FormQuestions({ questions }: FormQuestionsType) {
     handleReport()
   }
 
-  return !isReporting ? (
+  return  (
     <FormContainer>
       <Formik initialValues={{}} onSubmit={handleSubmit}>
         {({ values, setFieldValue }) => (
@@ -119,8 +117,4 @@ export function FormQuestions({ questions }: FormQuestionsType) {
       </Formik>
     </FormContainer>
   )
-    :
-    (<>
-      <QuestionsReport showButton />
-    </>)
 }

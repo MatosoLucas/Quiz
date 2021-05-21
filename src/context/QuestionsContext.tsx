@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useCallback, useState } from "react";
+import { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 
 import axios from "axios";
 import produce from "immer";
@@ -12,6 +12,9 @@ type QuestionContextData = {
   setValue: (value: number) => void;
   saveAnswers: (answers: Record<string, string>) => void;
   storedForm: Question[];
+  setStoredForm: (value: Question[]) => void;
+  isReporting: boolean;
+  setIsReporting: (boolean: boolean) => void;
 }
 
 export type Question = {
@@ -28,8 +31,9 @@ export const QuestionsContext = createContext({} as QuestionContextData)
 
 export function QuestionsProvider({ children }: QuestionProviderProps) {
   const [questions, setQuestions] = useState<Question[]>([]);
-  const storedForm = JSON.parse(localStorage.getItem('questions') || '[]')
-
+  const [storedForm, setStoredForm] = useState<Question[]>([])
+  const [isReporting, setIsReporting] = useState(false);
+  
   const setValue = useCallback( async (value: number) => {
     const result = await getQuestions(value);
     setQuestions(result);
@@ -44,9 +48,13 @@ export function QuestionsProvider({ children }: QuestionProviderProps) {
     }))
   }, [])
 
+  useEffect(() => {
+    setStoredForm(JSON.parse(localStorage.getItem('questions') || '[]'))
+  }, [isReporting])
 
+  
     return (
-    <QuestionsContext.Provider value={{ questions, setValue, saveAnswers, storedForm }}>
+    <QuestionsContext.Provider value={{ questions, setValue, saveAnswers, storedForm, setStoredForm, isReporting, setIsReporting }}>
       {children}
     </QuestionsContext.Provider>
   )

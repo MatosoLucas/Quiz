@@ -76,7 +76,7 @@ const ButtonBox = styled(Box)({
 
 
 export function SetQuestions() {
-  const { setValue, storedForm } = useContext(QuestionsContext)
+  const { setValue} = useContext(QuestionsContext)
 
   const [count, setCount] = useState(0)
   const [open, setOpen] = useState(false);
@@ -108,8 +108,7 @@ export function SetQuestions() {
         <AmountButton type="button" onClick={() => handleCounter(count + 1)}>+</AmountButton>
         <StartButton type="submit" onClick={() => setValue(count)}>Start</StartButton>
       </ButtonBox>
-      { storedForm
-        ? <Box paddingBottom={2}>
+       <Box paddingBottom={2}>
           <Button onClick={handleOpen}>Check your last Score!</Button>
           <Modal
             open={open}
@@ -117,7 +116,6 @@ export function SetQuestions() {
             <QuestionsReport />
           </Modal>
         </Box>
-        : null}
     </HomeContainer>
   )
 }
