@@ -24,7 +24,13 @@ const FormContainer = styled(Container)({
   borderRadius: '12px',
   border: '1px solid #646464',
   background: '#ebebeb',
-  overflow: 'auto'
+  overflow: 'auto',
+})
+
+const ScoreBox = styled(Box)({
+  display: 'flex',
+  fontSize: '24px',
+  justifyContent: 'space-between',
 })
 
 const ReturnButton = styled(Button)({
@@ -32,15 +38,15 @@ const ReturnButton = styled(Button)({
   '&:hover': {
     background: "#7695fc",
   },
-  margin: '0 auto',
+  margin: '0',
   color: 'white',
   border: 0,
   borderRadious: 3,
   height: 36,
-
   padding: '0 24px',
   boxShadow: '0 3px 5px 2px #003ab85e',
 })
+
 
 
 export function QuestionsReport({ showButton }: { showButton?: boolean }) {
@@ -101,10 +107,10 @@ export function QuestionsReport({ showButton }: { showButton?: boolean }) {
       {
         storedForm.length === 0
           ? <span>It seems you don't have a last quiz report!</span>
-          : <Box>
+          : <ScoreBox>
             <span>Your last score was: {score} points!</span>
             {showButton && <ReturnButton onClick={handleReturn}>Return</ReturnButton>}
-          </Box>
+          </ScoreBox>
       }
 
     </FormContainer>
