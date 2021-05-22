@@ -76,7 +76,7 @@ const ButtonBox = styled(Box)({
 
 
 export function SetQuestions() {
-  const { setValue} = useContext(QuestionsContext)
+  const { setValue, setIsReporting } = useContext(QuestionsContext)
 
   const [count, setCount] = useState(0)
   const [open, setOpen] = useState(false);
@@ -98,6 +98,11 @@ export function SetQuestions() {
     }
   }
 
+  const handleStart = () => {
+    setValue(count)
+    setIsReporting(false)
+  }
+
   return (
     <HomeContainer>
       <TextBox>Adjust the number of questions and hit Start!</TextBox>
@@ -106,7 +111,7 @@ export function SetQuestions() {
         <AmountButton type="button" onClick={() => handleCounter(count - 1)}>-</AmountButton>
         <span>{count}</span>
         <AmountButton type="button" onClick={() => handleCounter(count + 1)}>+</AmountButton>
-        <StartButton type="submit" onClick={() => setValue(count)}>Start</StartButton>
+        <StartButton type="submit" onClick={handleStart}>Start</StartButton>
       </ButtonBox>
        <Box paddingBottom={2}>
           <Button onClick={handleOpen}>Check your last Score!</Button>

@@ -69,7 +69,6 @@ export function FormQuestions({ questions }: FormQuestionsType) {
   }
 
   const handleSubmit = (values: Record<string, string>) => {
-    console.log(values)
     saveAnswers(values)
     handleReport()
   }

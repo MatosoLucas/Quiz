@@ -34,6 +34,13 @@ const ScoreBox = styled(Box)({
   alignItems: 'center'
 })
 
+const SpanBox = styled(Box)({
+  display: 'flex',
+  fontSize: '24px',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
 const ReturnButton = styled(Button)({
   background: '#5e80f0FF',
   '&:hover': {
@@ -52,11 +59,10 @@ const ReturnButton = styled(Button)({
 
 export function QuestionsReport({ showButton }: { showButton?: boolean }) {
 
-  const { storedForm, setValue, setIsReporting,  } = useContext(QuestionsContext);
+  const { storedForm, setValue } = useContext(QuestionsContext);
 
   const handleReturn = () => {
   setValue(0)
-  setIsReporting(false)
   }
 
   const score = storedForm.filter(questions => questions.givenAnswer === questions.correctAnswer).length
@@ -106,7 +112,7 @@ export function QuestionsReport({ showButton }: { showButton?: boolean }) {
 
       {
         storedForm.length === 0
-          ? <ScoreBox><span>It seems you don't have a last quiz report!</span> <ReturnButton onClick={handleReturn}>Return</ReturnButton></ScoreBox>
+          ? <SpanBox><span>It seems you don't have a last quiz report!</span></SpanBox>
           : <ScoreBox>
             <span>Your last score was: {score} points!</span>
             {showButton && <ReturnButton onClick={handleReturn}>Return</ReturnButton>}
