@@ -59,7 +59,6 @@ const SubmitButton = styled(Button)({
   boxShadow: '0 3px 5px 2px #003ab85e',
 })
 
-
 export function FormQuestions({ questions }: FormQuestionsType) {
 
   const { saveAnswers, setValue, isReporting, setIsReporting } = useContext(QuestionsContext);
@@ -77,9 +76,9 @@ export function FormQuestions({ questions }: FormQuestionsType) {
     <FormContainer>
       <Formik initialValues={{}} onSubmit={handleSubmit}>
         {({ values, setFieldValue }) => (
-          <Form>
+          <Form style={{ width: '100%' }}>
             {questions?.map((question, index) => (
-              <Box key={question.question} paddingBottom={4}>
+              <Box width="100%" key={question.question} paddingBottom={4}>
                 <FormControl component="fieldset" >
                   <FormLabel component="legend" >
                     <QuestionBox>
