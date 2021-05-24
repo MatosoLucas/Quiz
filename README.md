@@ -20,7 +20,7 @@ $ cd quiz
 $ npm install or yarn install
 
 # Run the application
-$ npm start or yarn start
+$ npm run start or yarn start
 
 # The server will start at port: 3000 - go to http://localhost:3000
 
